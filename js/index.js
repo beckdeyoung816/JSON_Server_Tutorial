@@ -1,18 +1,25 @@
 // javascript for index.html
 
 const container = document.querySelector('.blogs');
+const searchForm = document.querySelector('.search');
 
-const renderPosts = async () => {
-    let uri = 'http://localhost:3000/posts'
+const renderPosts = async (term) => {
+    // Sort posts by likes in descending order
+    let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc'
 
-    const res = await fetch(uri);
+    if (term) { // if term is not empty. Necessary because no term in original call
+        uri += `&q=${term}`;  // append the query string
+    }
 
-    const posts = await res.json();
+    const res = await fetch(uri); // fetch posts
+
+    const posts = await res.json(); // convert to json
 
     console.log(posts);
 
     let template = '';
 
+    // Loop through posts and create html template
     posts.forEach(post => {
         template += `
             <div class="post">
@@ -28,4 +35,10 @@ const renderPosts = async () => {
 
 }
 
-window.addEventListener('DOMContentLoaded', () => renderPosts());
+searchForm.addEventListener('submit', async (e) => {
+    // Prevent default action of form, which is reloading the page
+    e.preventDefault();
+    renderPosts(searchForm.term.value.trim()); // Get search term and pass it to renderPosts
+});
+
+window.addEventListener('DOMContentLoaded', () => renderPosts()); // Call renderPosts on page load
