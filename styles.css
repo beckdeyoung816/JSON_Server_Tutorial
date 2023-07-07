@@ -37,3 +37,31 @@ input, textarea {
 textarea {
   min-height:200px;
 }
+
+.post {
+  background: white;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.post h2 {
+  margin: 0;
+}
+
+.post p {
+  margin: 0;
+  color: #666;
+}
+
+.post a {
+  color: #36cca2;
+  text-decoration: none;
+}
+
+.post .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
